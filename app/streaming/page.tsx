@@ -36,7 +36,7 @@ export default function StreamingPage() {
           </Card>
         }
       >
-        <SlowComponent delay={2000} />
+        <SlowComponent delay={Math.round(Math.random() * 10000)} />
       </Suspense>
 
       <Suspense
@@ -48,7 +48,7 @@ export default function StreamingPage() {
           </Card>
         }
       >
-        <SlowComponent delay={4000} />
+        <SlowComponent delay={Math.round(Math.random() * 10000)} />
       </Suspense>
       <div className="mt-4">
         Learn more about Next.js Streaming in the official{" "}
