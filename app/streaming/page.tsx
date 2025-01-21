@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Card } from "@/components/ui/card";
 
-export const getDelay = () => {
+const getDelay = () => {
   const delays = [12000, 10000, 5000, 20000, 8000, 15000];
   return delays[Math.floor(Math.random() * delays.length)];
 };
