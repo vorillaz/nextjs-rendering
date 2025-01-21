@@ -1,10 +1,10 @@
 export const dynamic = "auto";
 
 import { Card } from "@/components/ui/card";
-
-async function getRandomQuote() {
+import Image from "next/image";
+async function getRandomCat() {
   try {
-    const response = await fetch("https://api.quotable.io/random", {
+    const response = await fetch("https://some-random-api.com/animal/cat", {
       cache: "no-store",
       headers: {
         Accept: "application/json",
@@ -17,20 +17,20 @@ async function getRandomQuote() {
 
     const data = await response.json();
     return {
-      content: data.content,
-      author: data.author,
+      image: data.image,
+      fact: data.fact,
     };
   } catch (error) {
     // Fallback quote in case of API failure
     return {
-      content: "The best preparation for tomorrow is doing your best today.",
-      author: "H. Jackson Brown Jr.",
+      image: "https://cdn.some-random-api.com/2BRR9Vqn.png",
+      fact: "The best preparation for tomorrow is doing your best today.",
     };
   }
 }
 
 export default async function DynamicPage() {
-  const quote = await getRandomQuote();
+  const cat = await getRandomCat();
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -40,13 +40,13 @@ export default async function DynamicPage() {
         <h2 className="text-2xl font-bold mb-4">Dynamic Content</h2>
         <p className="mb-4">
           This page is dynamically rendered on every request. Refresh to see a
-          new quote.
+          new cat fact.
         </p>
 
         <blockquote className="border-l-4 border-primary pl-4 my-4">
-          <p className="text-lg italic mb-2">{quote.content}</p>
+          <p className="text-lg italic mb-2">{cat.fact}</p>
           <footer className="text-sm text-muted-foreground">
-            — {quote.author}
+            <Image src={cat.image} alt="Cat" width={200} height={200} />
           </footer>
         </blockquote>
 
