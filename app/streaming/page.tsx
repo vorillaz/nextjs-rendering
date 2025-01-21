@@ -1,20 +1,52 @@
 import { Suspense } from "react";
 import { Card } from "@/components/ui/card";
 
+async function getRandomCat() {
+  try {
+    const response = await fetch(
+      `https://some-random-api.com/animal/cat?key=${Math.random()}`,
+      {
+        cache: "no-store",
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch quote");
+    }
+
+    const data = await response.json();
+    return {
+      image: data.image,
+      fact: data.fact,
+    };
+  } catch (error) {
+    // Fallback quote in case of API failure
+    return {
+      image: "https://cdn.some-random-api.com/2BRR9Vqn.png",
+      fact: "The best preparation for tomorrow is doing your best today.",
+    };
+  }
+}
+
 async function StreamingComponent({ delay }: { delay: number }) {
-  await new Promise((resolve) => setTimeout(resolve, delay));
-  const data = await fetch("https://api.vercel.app/blog");
-  const posts = await data.json();
+  const cat = await getRandomCat();
 
   return (
     <Card className="p-6 mb-4">
       <h2 className="text-2xl font-bold mb-4">
         Component loaded after {delay}ms
       </h2>
-      <p>This component was streamed after an artificial delay.</p>
+      <p>
+        This component was streamed after an artificial delay. and fetched from
+        API with a random cat fact
+      </p>
+      <blockquote>{cat.fact}</blockquote>
+
       <p className="text-muted-foreground mt-2">
-        Loaded at: {new Date().toLocaleTimeString()} and fetched from API with{" "}
-        {posts.length} posts
+        Loaded at: {new Date().toLocaleTimeString()}
       </p>
     </Card>
   );

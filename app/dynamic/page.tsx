@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 async function getRandomCat() {
   try {
-    const response = await fetch("https://some-random-api.com/animal/cat", {
+    const response = await fetch("https://some-random-api.com/animal/cat?", {
       cache: "no-store",
       headers: {
         Accept: "application/json",
@@ -45,9 +45,6 @@ export default async function DynamicPage() {
 
         <blockquote className="border-l-4 border-primary pl-4 my-4">
           <p className="text-lg italic mb-2">{cat.fact}</p>
-          <footer className="text-sm text-muted-foreground">
-            <Image src={cat.image} alt="Cat" width={200} height={200} />
-          </footer>
         </blockquote>
 
         <div className="p-4 bg-muted rounded-lg">
