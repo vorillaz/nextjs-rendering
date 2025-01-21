@@ -1,7 +1,7 @@
 export const dynamic = "auto";
 
 import { Card } from "@/components/ui/card";
-import Image from "next/image";
+
 async function getRandomCat() {
   try {
     const response = await fetch("https://some-random-api.com/animal/cat?", {

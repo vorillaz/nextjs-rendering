@@ -1,6 +1,11 @@
 import { Suspense } from "react";
 import { Card } from "@/components/ui/card";
 
+export const getDelay = () => {
+  const delays = [12000, 10000, 5000, 20000, 8000, 15000];
+  return delays[Math.floor(Math.random() * delays.length)];
+};
+
 async function getRandomCat() {
   try {
     const response = await fetch(
@@ -73,7 +78,7 @@ export default function StreamingPage() {
           </Card>
         }
       >
-        <StreamingComponent delay={Math.round(Math.random() * 10000)} />
+        <StreamingComponent delay={getDelay()} />
       </Suspense>
 
       <Suspense
@@ -85,7 +90,7 @@ export default function StreamingPage() {
           </Card>
         }
       >
-        <StreamingComponent delay={Math.round(Math.random() * 10000)} />
+        <StreamingComponent delay={getDelay()} />
       </Suspense>
       <div className="mt-4">
         Learn more about Next.js Streaming in the official{" "}
